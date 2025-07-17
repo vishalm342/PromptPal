@@ -3,7 +3,21 @@ const router = express.Router();
 const Prompt = require('../models/Prompt');
 const auth = require('../middleware/auth');
 
-// Apply authentication middleware to all routes
+// Route to get public prompts without authentication
+router.get('/public', async (req, res) => {
+  try {
+    const publicPrompts = await Prompt.find({ isPublic: true })
+      .populate('user', 'username')
+      .sort({ createdAt: -1 })
+      .limit(100); // Increased to 100 to show more prompts
+    res.json(publicPrompts);
+  } catch (error) {
+    console.error('Error fetching public prompts:', error);
+    res.status(500).json({ error: 'Failed to fetch public prompts' });
+  }
+});
+
+// Apply authentication middleware to all other routes
 router.use(auth);
 
 // GET /api/prompts - Get all prompts for the authenticated user
@@ -57,6 +71,7 @@ router.post('/', async (req, res) => {
       content,
       category,
       tags: tags || [],
+      isPublic: req.body.isPublic || false,
       user: req.user._id
     });
 
@@ -73,11 +88,11 @@ router.post('/', async (req, res) => {
 // PUT /api/prompts/:id - Update a prompt
 router.put('/:id', async (req, res) => {
   try {
-    const { title, content, category, tags } = req.body;
+    const { title, content, category, tags, isPublic } = req.body;
     
     const prompt = await Prompt.findOneAndUpdate(
       { _id: req.params.id, user: req.user._id },
-      { title, content, category, tags },
+      { title, content, category, tags, isPublic },
       { new: true, runValidators: true }
     ).populate('user', 'username email');
     
