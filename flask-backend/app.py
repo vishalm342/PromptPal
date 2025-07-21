@@ -8,14 +8,15 @@ from openai import OpenAI
 load_dotenv()
 
 app = Flask(__name__)
-# Allow multiple origins for development flexibility
+# Allow multiple origins for development flexibility and production
 origins = [
     "http://localhost:5173",
     "http://localhost:5174",
     "http://localhost:5175",
     "http://127.0.0.1:5173",
     "http://127.0.0.1:5174",
-    "http://127.0.0.1:5175",    
+    "http://127.0.0.1:5175",
+    "https://prompt-pal-murex.vercel.app"
 ]
 
 # Use the environment variable if set, otherwise use the origins list
