@@ -12,8 +12,10 @@ app = Flask(__name__)
 origins = [
     "http://localhost:5173",
     "http://localhost:5174",
+    "http://localhost:5175",
     "http://127.0.0.1:5173",
     "http://127.0.0.1:5174",
+    "http://127.0.0.1:5175",    
 ]
 
 # Use the environment variable if set, otherwise use the origins list
@@ -74,28 +76,52 @@ def suggest_prompt():
             # More diverse and high-quality mock templates based on different types of content
             if "solve" in topic or "problem" in topic or "help" in topic:
                 suggestions = [
-                    f"Write a step-by-step guide to solve {topic} problems with clear examples and visual explanations that break down complex concepts",
-                    f"Create a comprehensive tutorial on {topic} that includes common mistakes to avoid and practical exercises for reinforcement",
-                    f"Design an interactive learning journey for {topic} using the Feynman technique, starting with fundamentals and building to advanced applications"
+                    f"Write a step-by-step guide to solve {topic} problems with clear examples and visual explanations that break down complex concepts into manageable parts",
+                    f"Create a comprehensive tutorial on {topic} that includes common mistakes to avoid, practical exercises for reinforcement, and expert troubleshooting tips",
+                    f"Design an interactive learning journey for {topic} using the Feynman technique, starting with fundamentals and building to advanced applications with regular knowledge checkpoints"
+                ]
+            elif "learn" in topic or "study" in topic or "understand" in topic:
+                suggestions = [
+                    f"Develop a structured 30-day learning roadmap for mastering {topic}, with daily goals, resources, practice exercises, and milestone assessments",
+                    f"Create a comprehensive learning framework for {topic} that adapts to different learning styles (visual, auditory, kinesthetic) with tailored explanations and examples",
+                    f"Design a project-based learning curriculum for {topic} with 5 progressive projects that build skills incrementally while creating portfolio-worthy outcomes"
                 ]
             elif "create" in topic or "design" in topic or "develop" in topic:
                 suggestions = [
-                    f"Develop a detailed framework for {topic} with concrete examples, success metrics, and implementation timeline",
-                    f"Create an innovative approach to {topic} that incorporates cutting-edge methodologies and addresses potential challenges",
-                    f"Design a comprehensive blueprint for {topic} that balances theoretical foundations with practical real-world applications"
+                    f"Develop a detailed framework for {topic} with concrete examples, success metrics, implementation timeline, and risk mitigation strategies",
+                    f"Create an innovative approach to {topic} that incorporates cutting-edge methodologies, addresses potential challenges, and includes A/B testing protocols",
+                    f"Design a comprehensive blueprint for {topic} that balances theoretical foundations with practical real-world applications and includes stakeholder communication plans"
                 ]
             elif "analyze" in topic or "research" in topic or "evaluate" in topic:
                 suggestions = [
-                    f"Conduct a thorough analysis of {topic} using multiple analytical frameworks and present findings with visualizations",
-                    f"Research {topic} from diverse perspectives, including historical context, current trends, and future implications",
-                    f"Evaluate the effectiveness of different approaches to {topic} with specific criteria, case studies, and comparative metrics"
+                    f"Conduct a thorough analysis of {topic} using multiple analytical frameworks (SWOT, PESTEL, Porter's Five Forces) and present findings with data visualizations and actionable insights",
+                    f"Research {topic} from diverse perspectives, including historical context, current trends, future implications, and cross-cultural considerations with citations to authoritative sources",
+                    f"Evaluate the effectiveness of different approaches to {topic} with specific criteria, case studies, comparative metrics, and recommendations for optimal implementation strategies"
+                ]
+            elif "explain" in topic or "describe" in topic or "define" in topic:
+                suggestions = [
+                    f"Explain {topic} using the pyramid principle - start with the main conclusion, support with key arguments, and substantiate with evidence and examples tailored to different expertise levels",
+                    f"Create a multi-layered explanation of {topic} that progressively reveals complexity: ELI5 (explain like I'm 5), high school level, undergraduate level, and expert level perspectives",
+                    f"Develop a comprehensive glossary and conceptual framework for {topic} with visual diagrams, real-world analogies, and interconnections between related concepts"
+                ]
+            elif "compare" in topic or "contrast" in topic or "versus" in topic or "vs" in topic:
+                suggestions = [
+                    f"Create a detailed comparison matrix for {topic} with feature-by-feature analysis, pros/cons, use cases, and definitive recommendations based on different user needs and contexts",
+                    f"Develop a comprehensive comparison of {topic} with historical evolution, technical specifications, performance benchmarks, and future trajectory analysis",
+                    f"Design an objective evaluation framework for {topic} with standardized assessment criteria, real-world performance data, user experience considerations, and cost-benefit analysis"
+                ]
+            elif "optimize" in topic or "improve" in topic or "enhance" in topic:
+                suggestions = [
+                    f"Develop a systematic optimization protocol for {topic} with baseline measurements, incremental improvement strategies, A/B testing methodology, and performance metrics tracking",
+                    f"Create a comprehensive improvement roadmap for {topic} with quick wins, medium-term enhancements, and long-term strategic investments prioritized by impact and implementation effort",
+                    f"Design an evidence-based enhancement framework for {topic} incorporating best practices, cutting-edge research, expert techniques, and continuous feedback mechanisms"
                 ]
             else:
                 # Default diverse templates for any other type of content
                 suggestions = [
-                    f"Create a comprehensive guide to {topic} that covers fundamental concepts, advanced techniques, and practical applications in {tag_str}",
-                    f"Design an innovative framework for approaching {topic} that combines theoretical knowledge with hands-on examples tailored for {tag_str}",
-                    f"Develop a structured learning path for mastering {topic} with progressive difficulty levels and milestone achievements focused on {tag_str}"
+                    f"Create a comprehensive guide to {topic} that covers fundamental concepts, advanced techniques, practical applications, and emerging trends in {tag_str} with expert insights and resources",
+                    f"Design an innovative framework for approaching {topic} that combines theoretical knowledge with hands-on examples, case studies, and implementation strategies tailored for {tag_str}",
+                    f"Develop a structured learning path for mastering {topic} with progressive difficulty levels, milestone achievements, practical projects, and assessment tools focused on {tag_str}"
                 ]
             
             return jsonify({"suggestions": suggestions})
@@ -170,8 +196,9 @@ def suggest_prompt():
 
 if __name__ == "__main__":
     try:
-        port = int(os.getenv("FLASK_PORT", 5001))
-        app.run(debug=os.getenv("FLASK_DEBUG") == "True", port=port)
+        # Use port from environment variable, default to 10000 if not set
+        port = int(os.environ.get("FLASK_PORT", 10000))
+        app.run(host="0.0.0.0", port=port, debug=os.getenv("FLASK_DEBUG") == "True")
     except Exception as e:
         print("Flask failed to start:", e)
         sys.exit(1)
