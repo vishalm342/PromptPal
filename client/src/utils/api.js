@@ -2,6 +2,38 @@
  * API helper functions for making authenticated requests
  */
 
+// API base URLs for production and development
+const config = {
+  development: {
+    API_BASE_URL: 'http://localhost:5000',
+    AI_BASE_URL: 'http://localhost:5001'
+  },
+  production: {
+    API_BASE_URL: 'https://promptpal-umwk.onrender.com',    // Node backend
+    AI_BASE_URL: 'https://promptpal-ai.onrender.com'        // Flask backend
+  }
+};
+
+// Detect environment
+const isDevelopment =
+  window.location.hostname === 'localhost' ||
+  window.location.hostname === '127.0.0.1';
+
+const environment = isDevelopment ? 'development' : 'production';
+
+export const API_BASE_URL = config[environment].API_BASE_URL;
+export const AI_BASE_URL = config[environment].AI_BASE_URL;
+
+// Helper function to build full URLs
+export const buildUrl = (baseUrl, path) => {
+  // If the path is already a full URL, return it as is
+  if (path.startsWith('http')) {
+    return path;
+  }
+  // Otherwise, join the base URL with the path
+  return `${baseUrl}${path}`;
+};
+
 /**
  * Makes an authenticated request to the API
  * @param {string} url - The URL to make the request to
@@ -44,7 +76,9 @@ export const apiRequest = async (url, method = 'GET', data = null) => {
  * @returns {Promise<any>} - The parsed response data
  */
 export const get = async (url) => {
-  const response = await apiRequest(url);
+  // Check if the URL starts with http, otherwise prepend API_BASE_URL
+  const fullUrl = buildUrl(API_BASE_URL, url);
+  const response = await apiRequest(fullUrl);
   const responseData = await response.json();
   
   // If response is not OK, add the status to the error for better debugging
@@ -66,7 +100,9 @@ export const get = async (url) => {
  * @returns {Promise<any>} - The parsed response data
  */
 export const post = async (url, data) => {
-  const response = await apiRequest(url, 'POST', data);
+  // Check if the URL starts with http, otherwise prepend API_BASE_URL
+  const fullUrl = buildUrl(API_BASE_URL, url);
+  const response = await apiRequest(fullUrl, 'POST', data);
   const responseData = await response.json();
   
   // If response is not OK, add the status to the error for better debugging
@@ -88,7 +124,9 @@ export const post = async (url, data) => {
  * @returns {Promise<any>} - The parsed response data
  */
 export const put = async (url, data) => {
-  const response = await apiRequest(url, 'PUT', data);
+  // Check if the URL starts with http, otherwise prepend API_BASE_URL
+  const fullUrl = buildUrl(API_BASE_URL, url);
+  const response = await apiRequest(fullUrl, 'PUT', data);
   const responseData = await response.json();
   
   // If response is not OK, add the status to the error for better debugging
@@ -109,7 +147,9 @@ export const put = async (url, data) => {
  * @returns {Promise<any>} - The parsed response data
  */
 export const del = async (url) => {
-  const response = await apiRequest(url, 'DELETE');
+  // Check if the URL starts with http, otherwise prepend API_BASE_URL
+  const fullUrl = buildUrl(API_BASE_URL, url);
+  const response = await apiRequest(fullUrl, 'DELETE');
   const responseData = await response.json();
   
   // If response is not OK, add the status to the error for better debugging

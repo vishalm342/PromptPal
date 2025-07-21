@@ -5,7 +5,7 @@ import { ArrowLeftIcon, PlusIcon, XMarkIcon, SparklesIcon } from '@heroicons/rea
 import AnimatedBackground from '../components/AnimatedBackground';
 import { useAuth } from '../contexts/AuthContext';
 import { usePrompts } from '../contexts/PromptContext';
-import { post } from '../utils/api';
+import { post, AI_BASE_URL } from '../utils/api';
 
 const AddPrompt = () => {
   const navigate = useNavigate();
@@ -134,10 +134,10 @@ const AddPrompt = () => {
     });
     
     try {
-      console.log("Fetching from http://localhost:5001/suggest");
+      console.log(`Fetching from ${AI_BASE_URL}/suggest`);
       
       // We don't use the API helper here since this is a different backend
-      const response = await fetch('http://localhost:5001/suggest', {
+      const response = await fetch(`${AI_BASE_URL}/suggest`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
