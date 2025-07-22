@@ -293,10 +293,6 @@ def suggest_prompt():
         if len(suggestions) < 3:
             print(f"Using intelligent suggestion engine for {prompt_type}")
             suggestions = generate_intelligent_suggestions(prompt_text, tags, prompt_type)
-        # If Ollama didn't give us 3 good suggestions, use smart engine
-        if len(suggestions) < 3:
-            print(f"Using intelligent suggestion engine for {prompt_type}")
-            suggestions = generate_intelligent_suggestions(prompt_text, tags, prompt_type)
         
         # Ensure exactly 3 suggestions
         suggestions = suggestions[:3]
@@ -305,14 +301,41 @@ def suggest_prompt():
         return jsonify({"suggestions": suggestions})
     
     except requests.exceptions.Timeout:
-        print("Ollama request timed out")
-        return jsonify({"error": "Request timed out. The AI model is taking too long to respond."}), 504
+        print("Request timed out, using smart engine")
+        suggestions = generate_intelligent_suggestions(prompt_text, tags, analyze_prompt_type(prompt_text, tags))
+        return jsonify({"suggestions": suggestions[:3]})
     except requests.exceptions.ConnectionError:
-        print("Failed to connect to Ollama")
-        return jsonify({"error": "Cannot connect to Ollama service. Please ensure Ollama is running."}), 503
+        print("Connection error, using smart engine")
+        suggestions = generate_intelligent_suggestions(prompt_text, tags, analyze_prompt_type(prompt_text, tags))
+        return jsonify({"suggestions": suggestions[:3]})
     except Exception as e:
         print(f"Error in suggest_prompt: {str(e)}")
-        return jsonify({"error": f"Internal server error: {str(e)}"}), 500
+        # Fallback to smart engine for any error
+        try:
+            suggestions = generate_intelligent_suggestions(prompt_text, tags, analyze_prompt_type(prompt_text, tags))
+            return jsonify({"suggestions": suggestions[:3]})
+        except Exception as fallback_error:
+            print(f"Smart engine also failed: {fallback_error}")
+            return jsonify({"error": f"Internal server error: {str(e)}"}), 500
+
+@app.route("/health", methods=["GET"])
+def health_check():
+    """Health check endpoint for deployment monitoring"""
+    return jsonify({
+        "status": "healthy",
+        "service": "PromptPal Flask Backend",
+        "ollama_available": ollama_available,
+        "engine": "Ollama + Smart Engine" if ollama_available else "Smart Engine Only",
+        "cors_origins": len(origins)
+    })
+
+@app.errorhandler(404)
+def not_found(error):
+    return jsonify({"error": "Endpoint not found"}), 404
+
+@app.errorhandler(500)
+def internal_error(error):
+    return jsonify({"error": "Internal server error"}), 500
 
 if __name__ == "__main__":
     try:
