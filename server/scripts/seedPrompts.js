@@ -26,118 +26,153 @@ const categories = [
   'other'
 ];
 
-// Sample prompt templates
+// Ultra-refined, professional prompt templates that showcase PromptPal's AI capabilities
 const promptTemplates = [
   {
-    title: 'Blog Post Outline',
-    content: 'Create a detailed outline for a blog post about {topic}. Include an introduction, 3-5 main sections with subpoints, and a conclusion.',
+    title: 'AI-Enhanced Blog Content Strategy',
+    content: 'Craft a comprehensive 2000-word blog post about {topic} targeting {audience} professionals. Structure: compelling hook with statistics, expert-level introduction, 5 actionable insights with real-world case studies, data-driven evidence, expert quotes, practical implementation steps, SEO optimization with LSI keywords, social media snippets, and conversion-optimized CTA.',
     category: 'writing',
-    tags: ['blog', 'content', 'outline']
+    tags: ['AI content', 'SEO strategy', 'thought leadership']
   },
   {
-    title: 'Code Review Checklist',
-    content: 'As a senior developer, review this {language} code and provide feedback on: 1) Code organization, 2) Performance optimizations, 3) Security concerns, 4) Best practices, 5) Readability.',
+    title: 'Enterprise-Grade Code Architecture Review',
+    content: 'Conduct a comprehensive architectural review of this {language} application. Evaluate: scalability patterns, security vulnerabilities, performance bottlenecks, SOLID principles adherence, design patterns implementation, testing coverage, documentation quality, CI/CD integration, monitoring setup, and provide specific refactoring recommendations with priority levels.',
     category: 'programming',
-    tags: ['code review', 'best practices', 'development']
+    tags: ['architecture', 'enterprise', 'code quality']
   },
   {
-    title: 'Marketing Email Sequence',
-    content: 'Create a 5-email sequence for a {product} launch. Each email should have a compelling subject line, engaging hook, value proposition, social proof, and clear call-to-action.',
+    title: 'Data-Driven Growth Marketing Framework',
+    content: 'Design a complete growth marketing strategy for {product} targeting {market_segment}. Include: customer acquisition cost analysis, lifetime value optimization, multi-channel attribution modeling, conversion funnel optimization, A/B testing framework, retention campaigns, viral mechanics, referral programs, and automated email sequences with behavioral triggers.',
     category: 'marketing',
-    tags: ['email', 'campaign', 'launch']
+    tags: ['growth hacking', 'analytics', 'conversion optimization']
   },
   {
-    title: 'Lesson Plan Template',
-    content: 'Create a detailed lesson plan for teaching {subject} to {grade level} students. Include learning objectives, materials needed, warm-up activity, main instruction, practice activities, assessment method, and homework.',
+    title: 'Interactive Learning Experience Design',
+    content: 'Create an immersive learning program for {subject} incorporating cognitive science principles. Design: learning objectives with Bloom\'s taxonomy, microlearning modules, gamification elements, spaced repetition system, peer collaboration features, adaptive assessment methods, real-world project applications, and competency-based progression tracking.',
     category: 'education',
-    tags: ['teaching', 'curriculum', 'education']
+    tags: ['instructional design', 'learning science', 'engagement']
   },
   {
-    title: 'Business Proposal Framework',
-    content: 'Create a business proposal for a {business type} that addresses: 1) Problem statement, 2) Proposed solution, 3) Market analysis, 4) Revenue model, 5) Competition, 6) Implementation timeline, 7) Financial projections.',
+    title: 'Strategic Business Transformation Plan',
+    content: 'Develop a comprehensive digital transformation strategy for a {business_type}. Cover: market disruption analysis, competitive intelligence, technology adoption roadmap, organizational change management, stakeholder alignment, ROI projections, risk mitigation strategies, implementation phases, success metrics, and cultural transformation initiatives.',
     category: 'business',
-    tags: ['proposal', 'business plan', 'strategy']
+    tags: ['digital transformation', 'strategy', 'change management']
   },
   {
-    title: 'Creative Story Starter',
-    content: 'Write the opening paragraph for a {genre} story that takes place in {setting} and involves a character who {character trait}. The paragraph should establish tone, introduce the protagonist, and hint at a central conflict.',
+    title: 'Immersive Narrative Experience',
+    content: 'Create a multi-layered {genre} narrative set in {setting} featuring a protagonist with {character_trait}. Develop: complex character arcs with psychological depth, interconnected plot threads, thematic symbolism, sensory-rich world-building, authentic dialogue patterns, narrative tension escalation, cultural authenticity, and emotionally resonant conclusion.',
     category: 'creative',
-    tags: ['writing', 'fiction', 'story']
+    tags: ['storytelling', 'narrative design', 'character development']
   },
   {
-    title: 'Data Analysis Report',
-    content: 'Create a comprehensive analysis report for {dataset type} data that includes: 1) Executive summary, 2) Methodology, 3) Key findings with visualizations, 4) Limitations of analysis, 5) Actionable recommendations.',
+    title: 'Advanced Analytics Intelligence Report',
+    content: 'Generate a comprehensive {dataset_type} analysis with predictive insights. Include: exploratory data analysis with statistical significance testing, machine learning model development, feature importance analysis, trend forecasting, anomaly detection, segment analysis, actionable business recommendations, implementation roadmap, and executive dashboard design.',
     category: 'analysis',
-    tags: ['data', 'analytics', 'reporting']
+    tags: ['data science', 'predictive analytics', 'business intelligence']
   },
   {
-    title: 'Productivity System',
-    content: 'Design a productivity system for a {profession} professional that includes: 1) Daily routines, 2) Task prioritization method, 3) Tools and apps, 4) Meeting structure, 5) Focus techniques, 6) Progress tracking.',
+    title: 'Peak Performance Optimization System',
+    content: 'Design a holistic productivity ecosystem for {profession} incorporating neuroscience research. Elements: circadian rhythm optimization, cognitive load management, deep work protocols, attention restoration techniques, energy management strategies, goal-setting frameworks, habit stacking systems, and performance measurement dashboards.',
     category: 'other',
-    tags: ['productivity', 'workflow', 'organization']
+    tags: ['performance optimization', 'neuroscience', 'productivity']
   },
   {
-    title: 'Technical Documentation Template',
-    content: 'Create a template for technical documentation of a {technology} project. Include sections for: overview, installation, configuration, API reference, examples, troubleshooting, and version history.',
+    title: 'Developer Experience Documentation Hub',
+    content: 'Create a world-class documentation ecosystem for {technology} that developers love. Include: interactive getting-started guides, comprehensive API reference with live examples, troubleshooting decision trees, community contribution guidelines, video tutorials, SDK examples, best practices compendium, and automated testing documentation.',
     category: 'programming',
-    tags: ['documentation', 'technical writing', 'developer']
+    tags: ['developer experience', 'documentation', 'developer tools']
   },
   {
-    title: 'Social Media Content Calendar',
-    content: 'Create a 2-week social media content calendar for a {business type} with daily posts for Instagram, Twitter, and Facebook. Include post topics, hashtags, best posting times, and engagement strategies.',
+    title: 'Omnichannel Brand Experience Strategy',
+    content: 'Design a cohesive brand experience for {business_type} across all touchpoints. Develop: brand personality framework, visual identity system, content style guide, customer journey mapping, touchpoint optimization, community building strategy, influencer collaboration framework, and brand experience measurement metrics.',
     category: 'marketing',
-    tags: ['social media', 'content calendar', 'engagement']
+    tags: ['brand strategy', 'omnichannel', 'customer experience']
   },
   {
-    title: 'Product Launch Checklist',
-    content: 'Create a comprehensive checklist for launching a new {product type}. Include pre-launch preparation, launch day activities, and post-launch follow-up tasks with timeline and responsibility assignments.',
+    title: 'Product Launch Orchestration Framework',
+    content: 'Engineer a comprehensive go-to-market strategy for {product_type} launch. Coordinate: market validation research, competitive positioning, pricing strategy optimization, distribution channel selection, PR and media outreach, influencer partnerships, customer onboarding automation, feedback collection systems, and post-launch optimization protocols.',
     category: 'business',
-    tags: ['product launch', 'checklist', 'project management']
+    tags: ['product launch', 'go-to-market', 'strategic planning']
   },
   {
-    title: 'Research Paper Structure',
-    content: 'Outline the structure for an academic research paper on {topic} including: abstract, introduction with thesis statement, literature review, methodology, results, discussion, conclusion, and references.',
+    title: 'Research Methodology & Publication Strategy',
+    content: 'Develop a rigorous research framework for {topic} investigation. Design: literature review methodology, hypothesis formulation, mixed-methods research design, data collection protocols, statistical analysis plan, peer review preparation, journal selection strategy, and knowledge dissemination plan.',
     category: 'education',
-    tags: ['research', 'academic', 'writing']
+    tags: ['research methodology', 'academic publishing', 'evidence-based']
   },
   {
-    title: 'Interview Question Bank',
-    content: 'Generate 20 interview questions for a {position} role, covering technical skills, experience, behavioral scenarios, problem-solving abilities, and cultural fit.',
+    title: 'Behavioral Interview Assessment Matrix',
+    content: 'Create a comprehensive behavioral interview system for {position} roles using psychological assessment principles. Include: competency-based question bank, STAR method evaluation rubrics, cognitive bias mitigation strategies, diversity and inclusion considerations, candidate experience optimization, and predictive validity metrics.',
     category: 'business',
-    tags: ['interview', 'hiring', 'HR']
+    tags: ['talent acquisition', 'behavioral assessment', 'HR strategy']
   },
   {
-    title: 'UX Research Plan',
-    content: 'Create a UX research plan for a {digital product} that includes: research questions, methodology, participant criteria, timeline, budget, and expected deliverables.',
+    title: 'User-Centered Design Research Protocol',
+    content: 'Establish a comprehensive UX research methodology for {digital_product} optimization. Execute: user persona development with behavioral segmentation, journey mapping with emotion tracking, usability testing protocols, accessibility evaluation, conversion optimization experiments, and design system validation.',
     category: 'programming',
-    tags: ['UX', 'research', 'design']
+    tags: ['UX research', 'user-centered design', 'optimization']
   },
   {
-    title: 'Weekly Meal Plan',
-    content: 'Create a 7-day meal plan for someone following a {diet type} diet. Include breakfast, lunch, dinner, and snacks with ingredients list and simple preparation instructions.',
+    title: 'Personalized Wellness Optimization Plan',
+    content: 'Create a scientifically-backed {diet_type} nutrition program with behavioral psychology integration. Include: metabolic assessment, nutrient timing optimization, meal prep automation systems, craving management strategies, progress tracking methods, social support structures, and long-term sustainability protocols.',
     category: 'other',
-    tags: ['meal planning', 'nutrition', 'cooking']
+    tags: ['nutrition science', 'behavior change', 'wellness optimization']
+  },
+  {
+    title: 'AI-Powered Content Automation Strategy',
+    content: 'Develop an intelligent content generation system for {business_type} using AI tools. Implement: content strategy framework, AI prompt optimization, quality assurance protocols, brand voice consistency, SEO automation, multi-platform adaptation, performance analytics, and human-AI collaboration workflows.',
+    category: 'marketing',
+    tags: ['AI automation', 'content strategy', 'workflow optimization']
+  },
+  {
+    title: 'Advanced Problem-Solving Framework',
+    content: 'Create a systematic approach to complex {domain} problem-solving using first principles thinking. Include: problem decomposition techniques, root cause analysis methodologies, creative solution generation, feasibility assessment matrices, implementation planning, risk evaluation, and continuous improvement feedback loops.',
+    category: 'analysis',
+    tags: ['problem solving', 'critical thinking', 'methodology']
+  },
+  {
+    title: 'Emotional Intelligence Training Program',
+    content: 'Design a comprehensive emotional intelligence development program for {target_group}. Cover: self-awareness assessment tools, emotion regulation techniques, empathy building exercises, social skills enhancement, conflict resolution strategies, leadership communication, and measurable progress indicators.',
+    category: 'education',
+    tags: ['emotional intelligence', 'soft skills', 'leadership development']
+  },
+  {
+    title: 'Innovation Lab Design Sprint',
+    content: 'Structure a 5-day design sprint for {innovation_challenge} using design thinking methodology. Plan: problem definition workshop, ideation facilitation, rapid prototyping sessions, user testing protocols, stakeholder feedback integration, implementation roadmap, and innovation culture development.',
+    category: 'creative',
+    tags: ['design thinking', 'innovation', 'rapid prototyping']
+  },
+  {
+    title: 'Cybersecurity Risk Assessment Protocol',
+    content: 'Establish a comprehensive cybersecurity evaluation framework for {organization_type}. Assess: threat landscape analysis, vulnerability scanning protocols, risk quantification methodologies, incident response planning, employee training programs, compliance alignment, and continuous monitoring systems.',
+    category: 'programming',
+    tags: ['cybersecurity', 'risk management', 'compliance']
   }
 ];
 
-// Variables to substitute in the prompt templates
+// Professional-grade variables for sophisticated prompt generation
 const substitutions = {
-  topic: ['artificial intelligence', 'sustainable living', 'personal finance', 'mental health', 'career development', 'digital marketing trends', 'home improvement', 'parenting tips'],
-  language: ['JavaScript', 'Python', 'Java', 'C#', 'Go', 'Rust', 'TypeScript', 'PHP', 'Swift'],
-  product: ['SaaS platform', 'mobile app', 'online course', 'physical product', 'subscription service', 'community membership', 'digital tool'],
-  subject: ['mathematics', 'science', 'history', 'literature', 'programming', 'art', 'music', 'physical education'],
-  'grade level': ['elementary', 'middle school', 'high school', 'college', 'adult'],
-  'business type': ['tech startup', 'local restaurant', 'e-commerce store', 'consulting firm', 'non-profit organization', 'fitness studio', 'online education platform'],
-  genre: ['science fiction', 'mystery', 'fantasy', 'romance', 'horror', 'historical fiction', 'thriller', 'comedy'],
-  setting: ['post-apocalyptic world', 'medieval kingdom', 'modern city', 'space colony', 'enchanted forest', 'underwater civilization', 'desert oasis'],
-  'character trait': ['can see the future', 'is hiding a secret identity', 'has recently lost everything', 'possesses a magical ability', 'is on the run from authorities'],
-  'dataset type': ['customer behavior', 'financial performance', 'marketing campaign results', 'health outcomes', 'environmental measurements', 'social media engagement'],
-  profession: ['software developer', 'marketing manager', 'teacher', 'freelancer', 'healthcare professional', 'small business owner', 'creative professional'],
-  technology: ['web application', 'mobile app', 'API', 'machine learning model', 'IoT device', 'blockchain system', 'database architecture'],
-  'product type': ['software product', 'physical consumer good', 'service offering', 'digital content', 'mobile application', 'B2B solution'],
-  position: ['software engineer', 'marketing manager', 'customer support specialist', 'product manager', 'data analyst', 'sales representative', 'project manager'],
-  'digital product': ['mobile app', 'website', 'web application', 'e-commerce platform', 'SaaS product', 'smart home device'],
-  'diet type': ['vegetarian', 'keto', 'paleo', 'vegan', 'Mediterranean', 'gluten-free', 'low-carb']
+  topic: ['AI-driven business transformation', 'sustainable technology innovation', 'behavioral economics in fintech', 'neuroscience-based productivity', 'quantum computing applications', 'ethical AI development', 'remote team dynamics', 'data privacy regulations'],
+  audience: ['C-suite executives', 'senior engineers', 'product managers', 'data scientists', 'marketing directors', 'startup founders', 'tech leads', 'innovation managers'],
+  language: ['TypeScript', 'Python', 'Rust', 'Go', 'Kotlin', 'Swift', 'C#', 'Scala', 'Elixir'],
+  product: ['AI-powered SaaS platform', 'B2B automation tool', 'developer API service', 'enterprise security solution', 'data analytics dashboard', 'mobile productivity app', 'blockchain infrastructure'],
+  market_segment: ['enterprise clients', 'mid-market companies', 'early-stage startups', 'SME businesses', 'Fortune 500 organizations', 'government agencies', 'educational institutions'],
+  subject: ['machine learning fundamentals', 'advanced data structures', 'behavioral psychology', 'design systems', 'financial modeling', 'strategic thinking', 'systems architecture'],
+  business_type: ['tech unicorn startup', 'traditional manufacturing company', 'financial services firm', 'healthcare organization', 'e-commerce marketplace', 'SaaS enterprise', 'consulting agency'],
+  genre: ['psychological thriller', 'hard science fiction', 'speculative fiction', 'cyberpunk', 'urban fantasy', 'climate fiction', 'techno-thriller'],
+  setting: ['AI-governed smart city', 'post-climate change world', 'virtual reality metaverse', 'interplanetary colony', 'bioengineered ecosystem', 'neural network simulation', 'quantum computing lab'],
+  character_trait: ['can interface directly with AI systems', 'has perfect memory recall', 'sees probability outcomes', 'experiences time non-linearly', 'communicates through quantum entanglement', 'manipulates digital reality'],
+  dataset_type: ['customer behavioral analytics', 'predictive maintenance sensor data', 'social media sentiment analysis', 'financial market indicators', 'healthcare outcome metrics', 'supply chain optimization data'],
+  profession: ['AI research scientist', 'product strategy director', 'DevOps architect', 'UX design lead', 'growth marketing manager', 'venture capital partner', 'innovation consultant'],
+  technology: ['microservices ecosystem', 'machine learning pipeline', 'blockchain infrastructure', 'edge computing platform', 'real-time analytics engine', 'API gateway architecture'],
+  product_type: ['AI-native software platform', 'IoT-enabled hardware device', 'developer tools ecosystem', 'enterprise automation solution', 'consumer wellness app', 'B2B marketplace platform'],
+  position: ['senior AI engineer', 'product management director', 'customer success architect', 'data science lead', 'growth marketing specialist', 'business development manager'],
+  digital_product: ['AI-powered mobile application', 'enterprise SaaS dashboard', 'developer collaboration platform', 'e-commerce optimization tool', 'data visualization interface', 'customer engagement platform'],
+  diet_type: ['plant-based performance nutrition', 'metabolic optimization protocol', 'cognitive enhancement nutrition', 'longevity-focused eating', 'athletic performance fueling', 'gut microbiome optimization'],
+  domain: ['artificial intelligence', 'sustainable technology', 'organizational psychology', 'systems thinking', 'behavioral economics', 'innovation management'],
+  target_group: ['technical leadership teams', 'cross-functional product teams', 'remote workforce', 'startup founders', 'enterprise executives', 'emerging technology professionals'],
+  innovation_challenge: ['AI ethics framework development', 'sustainable technology adoption', 'remote collaboration optimization', 'customer experience transformation', 'data privacy implementation', 'organizational agility enhancement'],
+  organization_type: ['fintech startup', 'healthcare technology company', 'e-commerce platform', 'SaaS enterprise', 'government agency', 'educational technology organization']
 };
 
 // Function to replace placeholders in template with random substitutions
