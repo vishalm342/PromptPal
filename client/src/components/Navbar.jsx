@@ -16,13 +16,24 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-black/30 backdrop-blur-lg sticky top-0 z-50 border-b border-purple-500/20">
+    <nav className="bg-[rgba(10,10,15,0.9)] backdrop-blur-lg sticky top-0 z-50 border-b border-[#FFD700]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Link to="/" className="text-white text-xl font-bold bg-gradient-to-r from-purple-400 via-orange-300 to-yellow-400 bg-clip-text text-transparent">
-              PromptPal
+            <Link 
+              to="/" 
+              className="flex items-center space-x-3 text-xl font-bold hover:opacity-80 transition-all duration-300"
+            >
+              <img 
+                src="/logo.png" 
+                alt="PromptPal Logo" 
+                className="h-10 w-10 object-contain"
+              />
+              <div>
+                <span className="text-white">Prompt</span>
+                <span className="text-[#FFD700]">Pal</span>
+              </div>
             </Link>
           </div>
 
@@ -31,7 +42,7 @@ const Navbar = () => {
             <div className="ml-10 flex items-center space-x-8">
               <Link
                 to="/explore"
-                className="text-gray-100 hover:text-orange-300 transition-colors duration-200 px-3 py-2"
+                className="text-gray-100 hover:text-[#FFD700] transition-colors duration-300 px-3 py-2 hover:bg-[#FFD700]/10 rounded-md"
               >
                 Explore
               </Link>
@@ -41,13 +52,13 @@ const Navbar = () => {
                 <>
                   <Link
                     to="/dashboard"
-                    className="text-gray-100 hover:text-purple-300 transition-colors duration-200 px-3 py-2"
+                    className="text-gray-100 hover:text-[#FFD700] transition-colors duration-300 px-3 py-2 hover:bg-[#FFD700]/10 rounded-md"
                   >
                     Dashboard
                   </Link>
                   <Link
                     to="/add-prompt"
-                    className="text-gray-100 hover:text-yellow-300 transition-colors duration-200 px-3 py-2"
+                    className="text-gray-100 hover:text-[#FFD700] transition-colors duration-300 px-3 py-2 hover:bg-[#FFD700]/10 rounded-md"
                   >
                     Create Prompt
                   </Link>
@@ -59,13 +70,13 @@ const Navbar = () => {
                 <>
                   <Link
                     to="/login"
-                    className="text-gray-100 hover:text-yellow-300 transition-colors duration-200 px-3 py-2"
+                    className="text-gray-100 hover:text-[#FFD700] transition-colors duration-300 px-3 py-2 hover:bg-[#FFD700]/10 rounded-md"
                   >
                     Login
                   </Link>
                   <Link
                     to="/signup"
-                    className="bg-gradient-to-r from-purple-500 via-orange-400 to-yellow-400 text-white px-4 py-2 rounded-md hover:from-purple-600 hover:via-orange-500 hover:to-yellow-500 transition-all duration-200 shadow-lg"
+                    className="bg-[#FFD700] text-black px-6 py-2 rounded-md hover:bg-[#FFC700] transition-all duration-300 shadow-lg hover:shadow-[#FFD700]/50 transform hover:scale-105 font-semibold"
                   >
                     Signup
                   </Link>
@@ -73,10 +84,10 @@ const Navbar = () => {
               ) : (
                 <>
                   <div className="flex items-center">
-                    <span className="text-purple-400 mr-2">@{currentUser.username}</span>
+                    <span className="text-[#FFD700] mr-3 font-medium">@{currentUser.username}</span>
                     <button
                       onClick={handleLogout}
-                      className="text-red-300 hover:text-red-400 transition-colors duration-200"
+                      className="text-red-300 hover:text-red-400 transition-colors duration-300 px-3 py-1 hover:bg-red-500/10 rounded-md"
                     >
                       Logout
                     </button>
@@ -89,7 +100,7 @@ const Navbar = () => {
           {/* Mobile menu button */}
           <div className="md:hidden">
             <button 
-              className="text-gray-100 hover:text-orange-300"
+              className="text-gray-100 hover:text-[#FFD700] transition-colors duration-300"
               onClick={toggleMobileMenu}
             >
               <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -102,11 +113,11 @@ const Navbar = () => {
 
       {/* Mobile menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-black/60 backdrop-blur-lg border-t border-purple-500/20 animate-fadeIn">
+        <div className="md:hidden bg-[rgba(10,10,15,0.95)] backdrop-blur-lg border-t border-[#FFD700]/30 animate-fadeIn">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             <Link
               to="/explore"
-              className="block text-gray-100 hover:text-orange-300 px-3 py-2"
+              className="block text-gray-100 hover:text-[#FFD700] px-3 py-2 hover:bg-[#FFD700]/10 rounded-md transition-colors duration-300"
               onClick={() => setMobileMenuOpen(false)}
             >
               Explore
@@ -117,14 +128,14 @@ const Navbar = () => {
               <>
                 <Link
                   to="/dashboard"
-                  className="block text-gray-100 hover:text-purple-300 px-3 py-2"
+                  className="block text-gray-100 hover:text-[#FFD700] px-3 py-2 hover:bg-[#FFD700]/10 rounded-md transition-colors duration-300"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Dashboard
                 </Link>
                 <Link
                   to="/add-prompt"
-                  className="block text-gray-100 hover:text-yellow-300 px-3 py-2"
+                  className="block text-gray-100 hover:text-[#FFD700] px-3 py-2 hover:bg-[#FFD700]/10 rounded-md transition-colors duration-300"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Create Prompt
@@ -137,14 +148,14 @@ const Navbar = () => {
               <>
                 <Link
                   to="/login"
-                  className="block text-gray-100 hover:text-yellow-300 px-3 py-2"
+                  className="block text-gray-100 hover:text-[#FFD700] px-3 py-2 hover:bg-[#FFD700]/10 rounded-md transition-colors duration-300"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Login
                 </Link>
                 <Link
                   to="/signup"
-                  className="block text-gray-100 hover:text-orange-300 px-3 py-2"
+                  className="block text-gray-100 hover:text-[#FFD700] px-3 py-2 hover:bg-[#FFD700]/10 rounded-md transition-colors duration-300"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Signup
@@ -153,10 +164,10 @@ const Navbar = () => {
             ) : (
               <>
                 <div className="px-3 py-2">
-                  <span className="block text-purple-400 mb-2">@{currentUser.username}</span>
+                  <span className="block text-[#FFD700] mb-2 font-medium">@{currentUser.username}</span>
                   <button
                     onClick={handleLogout}
-                    className="text-red-300 hover:text-red-400"
+                    className="text-red-300 hover:text-red-400 hover:bg-red-500/10 px-2 py-1 rounded-md transition-colors duration-300"
                   >
                     Logout
                   </button>
