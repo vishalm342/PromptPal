@@ -72,7 +72,7 @@ const Explore = () => {
               Discover amazing prompts created by our community. Find inspiration for your next AI-powered project.
             </p>
             {message && (
-              <div className="mt-4 p-2 bg-sky-400/20 text-sky-300 rounded-md max-w-md mx-auto">
+              <div className="mt-4 p-2 bg-[#FFD700]/20 text-[#FFD700] rounded-md max-w-md mx-auto border border-[#FFD700]/30">
                 {message}
               </div>
             )}
@@ -87,14 +87,14 @@ const Explore = () => {
                   placeholder="Search prompts..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full px-4 py-2 bg-white/10 backdrop-blur-md border border-gray-600/30 rounded-lg text-gray-100 placeholder-gray-400 focus:outline-none focus:border-sky-400"
+                  className="w-full px-4 py-3 bg-white/5 backdrop-blur-lg border border-white/10 rounded-xl text-gray-100 placeholder-gray-400 focus:outline-none focus:border-[#FFD700]/50 focus:shadow-lg focus:shadow-[#FFD700]/10 transition-all duration-200"
                 />
               </div>
               <div className="flex gap-2">
                 <select 
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
-                  className="px-4 py-2 bg-white/10 backdrop-blur-md border border-gray-600/30 rounded-lg text-gray-100 focus:outline-none focus:border-sky-400"
+                  className="px-4 py-3 bg-white/5 backdrop-blur-lg border border-white/10 rounded-xl text-gray-100 focus:outline-none focus:border-[#FFD700]/50 transition-all duration-200"
                 >
                   <option>All Categories</option>
                   <option>Writing</option>
@@ -113,7 +113,7 @@ const Explore = () => {
           {/* Prompts Grid */}
           {loading ? (
             <div className="text-center py-12">
-              <div className="animate-spin w-16 h-16 border-4 border-gray-600 border-t-sky-400 rounded-full mx-auto mb-4"></div>
+              <div className="animate-spin w-16 h-16 border-4 border-gray-600 border-t-[#FFD700] rounded-full mx-auto mb-4"></div>
               <p className="text-gray-400">Loading prompts...</p>
             </div>
           ) : error ? (
@@ -127,7 +127,7 @@ const Explore = () => {
               <p className="text-gray-400 mb-6">{error}</p>
               <button 
                 onClick={fetchPublicPrompts}
-                className="px-6 py-3 bg-sky-400 text-white rounded-lg hover:bg-sky-500 transition-colors duration-200"
+                className="px-6 py-3 bg-[#FFD700] text-black font-semibold rounded-lg hover:bg-[#FFC700] transition-all duration-300 shadow-lg shadow-[#FFD700]/30"
               >
                 Retry
               </button>
@@ -164,8 +164,8 @@ const Explore = () => {
             </motion.div>
           ) : (
             <div className="text-center py-12">
-              <div className="w-16 h-16 bg-gray-800 rounded-full mx-auto mb-4 flex items-center justify-center">
-                <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-16 h-16 bg-white/5 backdrop-blur-lg rounded-full mx-auto mb-4 flex items-center justify-center border border-white/10">
+                <svg className="w-8 h-8 text-[#FFD700]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
               </div>
