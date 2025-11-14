@@ -39,8 +39,10 @@ const Login = () => {
     if (Object.keys(errors).length === 0) {
       setIsSubmitting(true);
       try {
-        await login(formData.email, formData.password);
-        navigate(from, { replace: true });
+        const result = await login(formData.email, formData.password);
+        if (result.success) {
+          navigate(from, { replace: true });
+        }
       } catch (err) {
         console.error('Login error:', err);
       } finally {

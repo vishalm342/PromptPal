@@ -47,8 +47,10 @@ const Signup = () => {
     if (Object.keys(errors).length === 0) {
       setIsSubmitting(true);
       try {
-        await register(formData.username, formData.email, formData.password);
-        navigate('/dashboard');
+        const result = await register(formData.username, formData.email, formData.password);
+        if (result.success) {
+          navigate('/dashboard');
+        }
       } catch (err) {
         console.error('Registration error:', err);
       } finally {
