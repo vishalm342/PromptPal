@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { useAuth } from './AuthContext';
-import { get, post, del, put, API_BASE_URL } from '../utils/api';
+import api from '../utils/api';
 
 const PromptContext = createContext();
 
@@ -24,9 +24,9 @@ export const PromptProvider = ({ children }) => {
 
     try {
       setLoading(true);
-      const data = await get(`${API_BASE_URL}/api/prompts`);
-      console.log('Fetched user prompts:', data);
-      setUserPrompts(data);
+      const response = await api.get('/api/prompts');
+      console.log('Fetched user prompts:', response.data);
+      setUserPrompts(response.data);
     } catch (err) {
       console.error('Error fetching prompts:', err);
       setError('Failed to load your prompts');
@@ -39,9 +39,9 @@ export const PromptProvider = ({ children }) => {
   const fetchPublicPrompts = async () => {
     try {
       setLoading(true);
-      const data = await get(`${API_BASE_URL}/api/prompts/public`);
-      console.log('Fetched public prompts:', data);
-      setPublicPrompts(data);
+      const response = await api.get('/api/prompts/public');
+      console.log('Fetched public prompts:', response.data);
+      setPublicPrompts(response.data);
     } catch (err) {
       console.error('Error fetching public prompts:', err);
       setError('Failed to load public prompts');
@@ -53,8 +53,8 @@ export const PromptProvider = ({ children }) => {
   // Create a new prompt
   const createPrompt = async (promptData) => {
     try {
-      // Use the post helper function which handles errors and parsing
-      const newPrompt = await post('/api/prompts', promptData);
+      const response = await api.post('/api/prompts', promptData);
+      const newPrompt = response.data;
       
       // Update the user prompts state with the new prompt
       setUserPrompts(prevPrompts => [newPrompt, ...prevPrompts]);
@@ -74,7 +74,8 @@ export const PromptProvider = ({ children }) => {
   // Update a prompt
   const updatePrompt = async (promptId, promptData) => {
     try {
-      const updatedPrompt = await put(`${API_BASE_URL}/api/prompts/${promptId}`, promptData);
+      const response = await api.put(`/api/prompts/${promptId}`, promptData);
+      const updatedPrompt = response.data;
       
       // Update the user prompts state
       setUserPrompts(prevPrompts => 
@@ -100,7 +101,7 @@ export const PromptProvider = ({ children }) => {
   // Delete a prompt
   const deletePrompt = async (promptId) => {
     try {
-      await del(`${API_BASE_URL}/api/prompts/${promptId}`);
+      await api.delete(`/api/prompts/${promptId}`);
       
       // Remove from user prompts
       setUserPrompts(prevPrompts => 
@@ -125,10 +126,11 @@ export const PromptProvider = ({ children }) => {
       const prompt = userPrompts.find(p => p._id === promptId);
       if (!prompt) throw new Error('Prompt not found');
       
-      const updatedPrompt = await put(`${API_BASE_URL}/api/prompts/${promptId}`, {
+      const response = await api.put(`/api/prompts/${promptId}`, {
         ...prompt,
         isPublic: !isPublic
       });
+      const updatedPrompt = response.data;
       
       // Update in user prompts
       setUserPrompts(prevPrompts => 
