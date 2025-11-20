@@ -22,7 +22,7 @@ const isDevelopment =
 
 const environment = isDevelopment ? 'development' : 'production';
 
-const API_BASE_URL = config[environment].API_BASE_URL;
+export const API_BASE_URL = config[environment].API_BASE_URL;
 export const AI_BASE_URL = config[environment].AI_BASE_URL;
 
 const api = axios.create({
