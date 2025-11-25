@@ -175,7 +175,7 @@ const EditPrompt = () => {
           <div className="flex items-center mb-8">
             <Link
               to="/dashboard"
-              className="mr-4 p-2 text-gray-400 hover:text-sky-400 transition-colors duration-200"
+              className="mr-4 p-2 text-gray-400 hover:text-[#FFD700] transition-colors duration-200"
             >
               <ArrowLeftIcon className="w-6 h-6" />
             </Link>
@@ -205,7 +205,7 @@ const EditPrompt = () => {
                 value={formData.title}
                 onChange={handleInputChange}
                 required
-                className="w-full px-4 py-3 bg-white/10 backdrop-blur-md border border-gray-600/30 rounded-lg text-gray-100 placeholder-gray-400 focus:outline-none focus:border-sky-400 transition-colors duration-200"
+                className="w-full px-4 py-3 bg-white/5 backdrop-blur-lg border border-white/10 rounded-xl text-gray-100 placeholder-gray-400 focus:outline-none focus:border-[#FFD700]/50 focus:shadow-lg focus:shadow-[#FFD700]/10 transition-all duration-200"
                 placeholder="Enter a descriptive title for your prompt"
               />
             </div>
@@ -221,7 +221,7 @@ const EditPrompt = () => {
                 value={formData.category}
                 onChange={handleInputChange}
                 required
-                className="w-full px-4 py-3 bg-zinc-900 border border-gray-700 rounded-lg text-gray-100 focus:outline-none focus:border-sky-400 transition-colors duration-200"
+                className="w-full px-4 py-3 bg-white/5 backdrop-blur-lg border border-white/10 rounded-xl text-gray-100 focus:outline-none focus:border-[#FFD700]/50 transition-all duration-200"
               >
                 <option value="">Select a category</option>
                 <option value="writing">Writing</option>
@@ -244,13 +244,13 @@ const EditPrompt = () => {
                 {formData.tags.map((tag, index) => (
                   <span
                     key={index}
-                    className="inline-flex items-center px-3 py-1 bg-sky-400/20 text-sky-400 text-sm rounded-full border border-sky-400/30"
+                    className="inline-flex items-center px-3 py-1 bg-[#FFD700]/20 text-[#FFD700] text-sm rounded-full border border-[#FFD700]/30"
                   >
                     {tag}
                     <button
                       type="button"
                       onClick={() => removeTag(tag)}
-                      className="ml-2 text-sky-400 hover:text-sky-300"
+                      className="ml-2 text-[#FFD700] hover:text-[#FFC700]"
                     >
                       <XMarkIcon className="w-4 h-4" />
                     </button>
@@ -263,13 +263,13 @@ const EditPrompt = () => {
                   value={newTag}
                   onChange={(e) => setNewTag(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addTag())}
-                  className="flex-1 px-4 py-2 bg-zinc-900 border border-gray-700 rounded-lg text-gray-100 placeholder-gray-400 focus:outline-none focus:border-sky-400 transition-colors duration-200"
+                  className="flex-1 px-4 py-2 bg-white/5 backdrop-blur-lg border border-white/10 rounded-xl text-gray-100 placeholder-gray-400 focus:outline-none focus:border-[#FFD700]/50 focus:shadow-lg focus:shadow-[#FFD700]/10 transition-all duration-200"
                   placeholder="Add a tag"
                 />
                 <button
                   type="button"
                   onClick={addTag}
-                  className="px-4 py-2 bg-sky-400 text-white rounded-lg hover:bg-sky-500 transition-colors duration-200"
+                  className="px-4 py-2 bg-[#FFD700] text-black font-semibold rounded-lg hover:bg-[#FFC700] transition-colors duration-200"
                 >
                   <PlusIcon className="w-5 h-5" />
                 </button>
@@ -279,7 +279,7 @@ const EditPrompt = () => {
             {/* Content */}
             <div>
               <div className="flex justify-between items-center mb-2">
-                <label htmlFor="content" className="block text-lg font-medium text-base">
+                <label htmlFor="content" className="block text-lg font-medium text-gray-100">
                   Prompt Content *
                 </label>
               </div>
@@ -290,7 +290,7 @@ const EditPrompt = () => {
                 onChange={handleInputChange}
                 required
                 rows={12}
-                className="w-full px-4 py-3 bg-card border border-gray-700 rounded-lg text-base placeholder-gray-400 focus:outline-none focus:border-accentBlue transition-colors duration-200 resize-vertical"
+                className="w-full px-4 py-3 bg-white/5 backdrop-blur-lg border border-white/10 rounded-xl text-gray-100 placeholder-gray-400 focus:outline-none focus:border-[#FFD700]/50 focus:shadow-lg focus:shadow-[#FFD700]/10 transition-all duration-200 resize-vertical"
                 placeholder="Enter your prompt content here. Be detailed and specific about what you want the AI to do..."
               />
               <div className="flex justify-between items-center mt-2">
@@ -302,10 +302,10 @@ const EditPrompt = () => {
             </div>
 
             {/* Visibility */}
-            <div className="bg-card p-6 rounded-lg border border-gray-700">
+            <div className="bg-white/5 backdrop-blur-lg p-6 rounded-xl border border-white/10">
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="text-lg font-medium text-base">Make this prompt public</h3>
+                  <h3 className="text-lg font-medium text-gray-100">Make this prompt public</h3>
                   <p className="text-gray-400 text-sm mt-1">
                     Public prompts can be discovered and used by other users
                   </p>
@@ -318,7 +318,7 @@ const EditPrompt = () => {
                     onChange={handleInputChange}
                     className="sr-only peer"
                   />
-                  <div className="w-11 h-6 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-accentBlue"></div>
+                  <div className="w-11 h-6 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#FFD700]"></div>
                 </label>
               </div>
             </div>
@@ -341,11 +341,11 @@ const EditPrompt = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className={`flex-1 ${isSubmitting ? 'bg-gray-500' : 'bg-accentBlue'} text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-600 transition-colors duration-200 flex justify-center items-center`}
+                className={`flex-1 ${isSubmitting ? 'bg-gray-500' : 'bg-[#FFD700]'} text-black px-6 py-3 rounded-lg font-semibold hover:bg-[#FFC700] transition-all duration-300 shadow-lg shadow-[#FFD700]/30 flex justify-center items-center`}
               >
                 {isSubmitting ? (
                   <>
-                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
@@ -355,7 +355,7 @@ const EditPrompt = () => {
               </button>
               <Link
                 to="/dashboard"
-                className="flex-1 text-center border border-gray-600 text-base px-6 py-3 rounded-lg font-semibold hover:bg-card transition-colors duration-200"
+                className="flex-1 text-center border-2 border-[#FFD700] text-[#FFD700] px-6 py-3 rounded-lg font-semibold hover:bg-[#FFD700]/10 transition-colors duration-200"
               >
                 Cancel
               </Link>
