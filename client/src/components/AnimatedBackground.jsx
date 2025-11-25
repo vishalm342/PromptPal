@@ -3,66 +3,82 @@ import React from 'react';
 const AnimatedBackground = ({ children }) => {
   return (
     <div className="relative min-h-screen overflow-hidden">
-      {/* Base black background */}
-      <div className="absolute inset-0 bg-black" />
+      {/* Base gradient background - deep dark with subtle color */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#0A0A0A] via-[#121212] to-[#1A1A1A]" />
       
-      {/* Grid overlay - more subtle */}
-      <div className="absolute inset-0 opacity-15 bg-grid-pattern" />
+      {/* Subtle animated gradient overlay */}
+      <div 
+        className="absolute inset-0 opacity-30"
+        style={{
+          background: `
+            radial-gradient(
+              ellipse 1200px 900px at 20% 30%,
+              rgba(255, 215, 0, 0.08) 0%,
+              transparent 50%
+            )
+          `
+        }}
+      />
       
-      {/* Main centered radial gradient glow - brighter */}
-      <div className="absolute inset-0 bg-radial-glow" />
+      <div 
+        className="absolute inset-0 opacity-25"
+        style={{
+          background: `
+            radial-gradient(
+              ellipse 1000px 800px at 80% 70%,
+              rgba(255, 200, 0, 0.06) 0%,
+              transparent 50%
+            )
+          `
+        }}
+      />
       
-      {/* Additional glow layers for depth - enhanced */}
-      <div className="absolute inset-0 opacity-70 bg-glow-purple" />
-      <div className="absolute inset-0 opacity-55 bg-glow-orange" />
-      <div className="absolute inset-0 opacity-40 bg-glow-green" />
+      {/* Floating orbs with blur for depth */}
+      <div 
+        className="absolute inset-0 opacity-20 animate-float-enhanced"
+        style={{
+          background: `
+            radial-gradient(
+              circle 600px at 50% 40%,
+              rgba(255, 215, 0, 0.15) 0%,
+              rgba(255, 200, 0, 0.08) 40%,
+              transparent 70%
+            )
+          `,
+          filter: 'blur(60px)'
+        }}
+      />
       
-      {/* Animated overlay for subtle movement - brighter */}
-      <div className="absolute inset-0 opacity-8 bg-animated-glow animate-glow-pulse" />
-      
-      {/* Additional floating elements for dynamic effect - enhanced */}
       <div 
         className="absolute inset-0 opacity-15 animate-float-enhanced"
         style={{
+          animationDelay: '7s',
           background: `
             radial-gradient(
-              circle 400px at 30% 70%,
-              rgba(108, 43, 217, 0.2) 0%,
-              rgba(147, 51, 234, 0.15) 50%,
-              transparent 80%
+              circle 500px at 30% 70%,
+              rgba(255, 180, 0, 0.12) 0%,
+              transparent 65%
             )
-          `
+          `,
+          filter: 'blur(50px)'
         }}
       />
       
-      <div 
-        className="absolute inset-0 opacity-12 animate-float-enhanced"
-        style={{
-          animationDelay: '8s',
-          background: `
-            radial-gradient(
-              circle 500px at 70% 30%,
-              rgba(255, 179, 71, 0.18) 0%,
-              rgba(251, 146, 60, 0.12) 60%,
-              transparent 85%
-            )
-          `
-        }}
-      />
+      {/* Subtle grid pattern for texture */}
+      <div className="absolute inset-0 opacity-[0.02] bg-grid-pattern" />
       
-      {/* Yellow accent glow */}
+      {/* Animated glow pulse */}
       <div 
-        className="absolute inset-0 opacity-10 animate-float-enhanced"
+        className="absolute inset-0 opacity-10 animate-glow-pulse"
         style={{
-          animationDelay: '15s',
           background: `
             radial-gradient(
-              circle 350px at 50% 60%,
-              rgba(255, 215, 0, 0.15) 0%,
-              rgba(255, 193, 7, 0.1) 50%,
-              transparent 75%
+              ellipse 1400px 1000px at 50% 50%,
+              rgba(255, 215, 0, 0.08) 0%,
+              transparent 60%
             )
-          `
+          `,
+          filter: 'blur(80px)'
         }}
       />
       
