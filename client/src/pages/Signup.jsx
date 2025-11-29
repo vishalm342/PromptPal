@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import AnimatedBackground from '../components/AnimatedBackground';
 import { useAuth } from '../contexts/AuthContext';
@@ -12,8 +12,15 @@ const Signup = () => {
   });
   const [formErrors, setFormErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { register, error } = useAuth();
+  const { register, error, currentUser } = useAuth();
   const navigate = useNavigate();
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (currentUser) {
+      navigate('/dashboard', { replace: true });
+    }
+  }, [currentUser, navigate]);
   
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import AnimatedBackground from '../components/AnimatedBackground';
 import { useAuth } from '../contexts/AuthContext';
@@ -10,12 +10,19 @@ const Login = () => {
   });
   const [formErrors, setFormErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { login, error } = useAuth();
+  const { login, error, currentUser } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  
+
   // Get the redirect path if it exists
   const from = location.state?.from || '/dashboard';
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (currentUser) {
+      navigate('/dashboard', { replace: true });
+    }
+  }, [currentUser, navigate]);
   
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
