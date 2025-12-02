@@ -6,10 +6,12 @@ const auth = require('../middleware/auth');
 // Route to get public prompts without authentication
 router.get('/public', async (req, res) => {
   try {
+    console.log('GET /api/prompts/public - fetching public prompts');
     const publicPrompts = await Prompt.find({ isPublic: true })
       .populate('user', 'username')
       .sort({ createdAt: -1 })
       .limit(100); // Increased to 100 to show more prompts
+    console.log(`Returning ${publicPrompts.length} public prompts`);
     res.json(publicPrompts);
   } catch (error) {
     console.error('Error fetching public prompts:', error);

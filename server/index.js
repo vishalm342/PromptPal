@@ -8,40 +8,44 @@ const authRoutes = require('./routes/authRoutes');
 // Load environment variables
 dotenv.config();
 
-// Check for required environment variables
+// Basic required env checks (log only; allow process to start so Render can report)
 if (!process.env.MONGODB_URI) {
-  console.error('MONGODB_URI environment variable is required');
-  process.exit(1);
+  console.warn('MONGODB_URI environment variable is not set. DB will not connect until set.');
 }
 
 if (!process.env.JWT_SECRET) {
-  console.error('JWT_SECRET environment variable is required');
-  process.exit(1);
+  console.warn('JWT_SECRET environment variable is not set. Auth may fail.');
 }
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+const HOST = '0.0.0.0';
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI)
-  .then(() => {
-    console.log('✅ Connected to MongoDB successfully');
-  })
-  .catch((error) => {
-    console.error('❌ MongoDB connection error:', error);
-    process.exit(1);
-  });
-
-// CORS Configuration - MUST come before routes
+// CORS Configuration - prefer explicit FRONTEND_URL env var, fallback to permissive in non-production
+const frontendOrigin = process.env.FRONTEND_URL;
 const corsOptions = {
-  origin: [
-    'http://localhost:5173', 
-    'http://localhost:5174', 
-    'http://localhost:5175',
-    'http://127.0.0.1:5173',
-    'https://prompt-pal-murex.vercel.app',
-    'https://promptpal-umwk.onrender.com'
-  ],
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true); // allow server-to-server or curl
+    if (process.env.NODE_ENV === 'production') {
+      if (frontendOrigin && origin === frontendOrigin) return callback(null, true);
+      // allow the Render app domain if provided
+      if (origin === process.env.RENDER_EXTERNAL_URL) return callback(null, true);
+      return callback(new Error('Not allowed by CORS'));
+    }
+    // development: allow common local origins and any origin when FRONTEND_URL not set
+    const devAllow = [
+      'http://localhost:5173',
+      'http://localhost:5174',
+      'http://localhost:5175',
+      'http://localhost:3000',
+      'http://127.0.0.1:5173'
+    ];
+    if (frontendOrigin) {
+      devAllow.push(frontendOrigin);
+    }
+    if (devAllow.includes(origin) || !origin) return callback(null, true);
+    return callback(null, true);
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
@@ -66,12 +70,36 @@ app.use('/api/prompts', promptRoutes);
 
 // Basic health check route
 app.get('/', (req, res) => {
-  res.json({ 
+  res.json({
     message: 'PromptPal API is running!',
     version: '1.0.0',
     endpoints: {
       auth: '/api/auth',
       prompts: '/api/prompts'
+    }
+  });
+});
+
+// Health check endpoint for Docker
+app.get('/health', (req, res) => {
+  const healthcheck = {
+    uptime: process.uptime(),
+    message: 'OK',
+    timestamp: Date.now(),
+    mongoStatus: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected'
+  };
+  res.status(200).json(healthcheck);
+});
+
+// Diagnostic endpoint
+app.get('/diag', (req, res) => {
+  res.json({
+    server: 'ok',
+    env: process.env.NODE_ENV || 'development',
+    dbConnected: mongoose.connection.readyState === 1,
+    endpoints: {
+      health: '/health',
+      promptsPublic: '/api/prompts/public'
     }
   });
 });
@@ -88,9 +116,32 @@ app.use((req, res) => {
 });
 
 // Start server
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+const server = app.listen(PORT, HOST, () => {
+  console.log(`Server running on ${HOST}:${PORT}`);
   console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+
+  // Connect to MongoDB asynchronously after server starts so the process can respond to pings even if DB is slow
+  if (process.env.MONGODB_URI) {
+    mongoose.connect(process.env.MONGODB_URI)
+      .then(() => {
+        console.log('✅ Connected to MongoDB successfully');
+      })
+      .catch((error) => {
+        console.error('❌ MongoDB connection error:', error);
+      });
+  } else {
+    console.warn('Skipping MongoDB connect because MONGODB_URI is not set');
+  }
 });
 
-module.exports = app;
+// Global error handlers so Render logs show uncaught errors
+process.on('uncaughtException', (err) => {
+  console.error('Uncaught Exception:', err);
+  // keep process alive for crash reporting; optionally exit after logging
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+});
+
+module.exports = { app, server };
