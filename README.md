@@ -154,7 +154,7 @@ PromptPal/
 ## 🌐 Live Demo
 
 - **Frontend**: [https://prompt-pal-murex.vercel.app](https://prompt-pal-murex.vercel.app)
-- **Backend API**: Deployed on Render
+- **Backend API**: [https://promptpal-umwk.onrender.com/](https://promptpal-umwk.onrender.com/)
 - **AI Service**: Google Gemini API (production) + Smart Engine (fallback)
 
 ---
