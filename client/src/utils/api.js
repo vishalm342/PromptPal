@@ -10,8 +10,8 @@ const config = {
     AI_BASE_URL: 'http://localhost:5001'
   },
   production: {
-    API_BASE_URL: 'https://promptpal-umwk.onrender.com',    // Node backend
-    AI_BASE_URL: 'https://promptpal-ai.onrender.com'        // Flask backend
+    API_BASE_URL: 'https://promptpal-b2d7.onrender.com',    // Node backend
+    AI_BASE_URL: 'https://promptpal-1.onrender.com'        // Flask backend
   }
 };
 

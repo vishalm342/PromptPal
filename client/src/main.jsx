@@ -5,7 +5,7 @@ import './index.css'
 import App from './App.jsx'
 
 // Configure axios defaults
-axios.defaults.baseURL = 'http://localhost:5000';
+// Base URL is configured in src/utils/api.js based on environment
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 axios.defaults.headers.common['Content-Type'] = 'application/json';
 axios.defaults.withCredentials = true; // Enable sending cookies
