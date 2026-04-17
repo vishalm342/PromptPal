@@ -215,6 +215,7 @@ def suggest_prompt():
                 return jsonify(cached_entry['data'])
         
         suggestions = []
+        gemini_suggestions = []
         
         # Try Gemini API first
         if USE_GEMINI:
