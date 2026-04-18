@@ -6,6 +6,10 @@ const promptRoutes = require('./routes/promptRoutes');
 const authRoutes = require('./routes/authRoutes');
 
 // Load environment variables
+const fs = require('fs');
+if (fs.existsSync('.env.local')) {
+  dotenv.config({ path: '.env.local' });
+}
 dotenv.config();
 
 // Basic required env checks (log only; allow process to start so Render can report)
